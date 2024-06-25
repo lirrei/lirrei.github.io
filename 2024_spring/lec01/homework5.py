@@ -1,22 +1,23 @@
 #m23w0553 liruihan
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 def center_of_gravity(x):
-   
-    c = 0  # change this line
+
+    indices = np.arange(len(x))
+    c = np.dot(indices, x) / np.sum(x)
     return c
 
+
 def matched_identity(x):
-  
-    I =  0 # change this line
+
+    I = np.eye(len(x))
     return I
 
+
 def sine_and_cosine(t_start, t_end, t_steps):
- 
-    # change these lines
-    t = 0 
-    x = 0
-    y = 0
-    # end changes here
+
+    t = np.linspace(t_start, t_end, t_steps)
+    x = np.cos(t)
+    y = np.sin(t)
     return t, x, y
