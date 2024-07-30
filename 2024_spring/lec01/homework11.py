@@ -1,4 +1,4 @@
-import speech_recognition
+import speech_recognition as sr
 
 def transcribe_wavefile(filename, language='en'):
     '''
@@ -13,4 +13,21 @@ def transcribe_wavefile(filename, language='en'):
     @returns:
     text (str) - the recognized speech
     '''
-    raise RuntimeError("FAIL!!  You need to change this function so it works!")
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(filename) as source:
+        audio_data = recognizer.record(source)
+        try:
+            text = recognizer.recognize_google(audio_data, language=language)
+            return text
+        except sr.UnknownValueError:
+            return "Speech recognition could not understand the audio"
+        except sr.RequestError as e:
+            return f"Could not request results from Google Speech Recognition service; {e}"
+
+# 测试代码
+import importlib
+import homework11
+importlib.reload(homework11)
+
+text = homework11.transcribe_wavefile("264752__copyc4t__phone-messages-english-and-italian.flac")
+print(text)
